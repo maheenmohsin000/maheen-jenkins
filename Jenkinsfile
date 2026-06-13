@@ -1,18 +1,8 @@
-stage('Deploy') {
-    steps {
-        sh 'docker build -t jenkins-demo .'
-        echo 'Deployed!'
-    }
-}
-
-stage('Notify') {
-    steps {
-        echo 'Team notified of successful build!'
-    }
-}pipeline {
+pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -38,12 +28,19 @@ stage('Notify') {
                 echo 'Deployed!'
             }
         }
+
+        stage('Notify') {
+            steps {
+                echo 'Team notified of successful build!'
+            }
+        }
     }
 
     post {
         success {
             echo 'Pipeline SUCCESS!'
         }
+
         failure {
             echo 'Pipeline FAILED!'
         }
