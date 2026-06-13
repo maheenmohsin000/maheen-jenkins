@@ -1,4 +1,15 @@
-pipeline {
+stage('Deploy') {
+    steps {
+        sh 'docker build -t jenkins-demo .'
+        echo 'Deployed!'
+    }
+}
+
+stage('Notify') {
+    steps {
+        echo 'Team notified of successful build!'
+    }
+}pipeline {
     agent any
 
     stages {
