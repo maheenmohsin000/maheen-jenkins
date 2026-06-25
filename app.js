@@ -1,4 +1,4 @@
-const http = require('http');
+res.end('Hello from Jenkins Pipeline! v2');const http = require('http');
 http.createServer((req, res) => {
   res.writeHead(200);
   res.end('Hello from Jenkins Pipeline! v1\n');
