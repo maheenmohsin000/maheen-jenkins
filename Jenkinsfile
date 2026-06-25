@@ -31,6 +31,27 @@ pipeline {
     }
 
   }
+stage('Docker Build') {
+    steps {
+        sh 'docker build -t maheenmohsin000/jenkins-demo:v1 .'
+    }
+}
+
+stage('Docker Push') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+
+            sh '''
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            docker push maheenmohsin000/jenkins-demo:v1
+            '''
+        }
+    }
+}
 
   post {
     success {
