@@ -1,48 +1,38 @@
 pipeline {
-    agent any
+ agent any
 
-    stages {
+ stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+  stage('Checkout') {
+   steps {
+    checkout scm
+   }
+  }
 
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                sh 'node --version'
-            }
-        }
+  stage('Build') {
+   steps {
+    echo 'Building...'
+    sh 'node --version'
+    sh 'npm --version'
+   }
+  }
 
-        stage('Test') {
-            steps {
-                echo 'Tests passed!'
-            }
-        }
+  stage('Test') {
+   steps {
+    echo 'Tests passed!'
+   }
+  }
 
-        stage('Deploy') {
-            steps {
-                sh 'docker build -t jenkins-demo .'
-                echo 'Deployed!'
-            }
-        }
+  stage('Deploy') {
+   steps {
+    sh 'docker build -t jenkins-demo .'
+    echo 'Deployed!'
+   }
+  }
+ }
 
-        stage('Notify') {
-            steps {
-                echo 'Team notified of successful build!'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline SUCCESS!'
-        }
-
-        failure {
-            echo 'Pipeline FAILED!'
-        }
-    }
+ post {
+  success { echo 'Pipeline SUCCESS!' }
+  failure { echo 'Pipeline FAILED!' }
+ }
 }
